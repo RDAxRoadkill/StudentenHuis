@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
 namespace StudHuis.Models
@@ -47,12 +48,12 @@ namespace StudHuis.Models
         private const string adminUser = "Chef";
         private const string adminPassword = "Secret";
 
-        public static async void EnsurePopulated(IApplicationBuilder app)
+        public static async Task EnsurePopulated(UserManager<IdentityUser> userManager)
         {
-
+            /*
             UserManager<IdentityUser> userManager = app.ApplicationServices
                 .GetRequiredService<UserManager<IdentityUser>>();
-
+            */
             IdentityUser user = await userManager.FindByIdAsync(adminUser);
             if (user == null)
             {

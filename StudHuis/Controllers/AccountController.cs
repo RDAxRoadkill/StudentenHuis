@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using StudHuis.Models;
 using StudHuis.Models.ViewModels;
 
 namespace StudHuis.Controllers
@@ -16,6 +17,7 @@ namespace StudHuis.Controllers
         {
             userManager = userMgr;
             signInManager = signInMgr;
+            IdentitySeedData.EnsurePopulated(userMgr).Wait();
         }
 
         [AllowAnonymous]
