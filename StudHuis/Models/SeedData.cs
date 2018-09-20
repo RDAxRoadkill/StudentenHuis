@@ -3,11 +3,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace StudHuis.Models
 {
     public class SeedData
     {
+        private const string adminUser = "Chef";
+        private const string adminPassword = "Secret";
+
         public static void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDbContext context = app.ApplicationServices
@@ -32,8 +36,28 @@ namespace StudHuis.Models
                         Price = 6.66,
                         MealTime = new DateTime(2018, 1, 1)
                     }
-               );
+                );
                 context.SaveChanges();
+            }
+        }
+    }
+
+    public class IdentitySeedData
+    {
+        private const string adminUser = "Chef";
+        private const string adminPassword = "Secret";
+
+        public static async void EnsurePopulated(IApplicationBuilder app)
+        {
+
+            UserManager<IdentityUser> userManager = app.ApplicationServices
+                .GetRequiredService<UserManager<IdentityUser>>();
+
+            IdentityUser user = await userManager.FindByIdAsync(adminUser);
+            if (user == null)
+            {
+                user = new IdentityUser("Chef");
+                await userManager.CreateAsync(user, adminPassword);
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StudHuis.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StudHuis.Controllers
 {
@@ -17,5 +18,11 @@ namespace StudHuis.Controllers
         }
 
         public ViewResult List() => View(repository.Meals);
+
+        [Authorize]
+        public ViewResult JoinMeal()
+        {
+            return View();
+        }
     }
 }
