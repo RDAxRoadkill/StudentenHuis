@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace StudHuis.Models
 {
-    public class IMealRepository
+    public interface IMealRepository
     {
-        private IQueryable<Meal> Meals { get;  }
-    }
+        IQueryable<Meal> Meals { get; }
+        //public IEnumerable<Meal> Meals { get; }
+}
 }

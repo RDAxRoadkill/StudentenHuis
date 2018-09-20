@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using StudHuis.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StudHuis.Models;
 
 namespace StudHuis
 {
@@ -27,6 +28,7 @@ namespace StudHuis
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IMealRepository, FakeMealRepository>();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -62,7 +64,7 @@ namespace StudHuis
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
+            /* TODO: Return controller to home, fix up home page */
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
