@@ -13,6 +13,7 @@ using StudHuis.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudHuis.Models;
+using ApplicationDbContext = StudHuis.Models.ApplicationDbContext;
 
 namespace StudHuis
 {
@@ -35,13 +36,17 @@ namespace StudHuis
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+/* Default config
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+*/
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                Configuration["Data:StudHuisMeals:ConnectionString"]));
+            services.AddTransient<IMealRepository, EFMealRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
