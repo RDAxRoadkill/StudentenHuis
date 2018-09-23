@@ -29,6 +29,12 @@ namespace StudHuis.Controllers
             });
         }
 
+        [AllowAnonymous]
+        public ViewResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
